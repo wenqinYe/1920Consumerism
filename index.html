@@ -10,6 +10,9 @@
 	</head>
 
 	<body>
+		<div id="backToTopBar">
+			<button>Back To Top</button>
+		</div>
 		<div id="main">
 			<section class="intro">
 				<div id="intro-div">
@@ -128,29 +131,25 @@
 
 			//initial fadein on start load
 			$('#introvid-div').hide().delay(300).fadeIn(1000);
+			/*
+				When the video is finished playing fade in the text and move to the 
+				second slide
+			*/
 			$('#intro-div').hide();
 			$('#intro-video').on('ended', function(){
 				$('#intro-div').delay(500).fadeIn(1000, function(){
-					/*There is a bug where if you start off at a different slide
-					this function will automatically moveTo(2) even though the user is not
-					at the beginning,
-
-					This happens because every slide is loaded at once on the pages first load.
-					Thus, it does not matter which slide you are on, the video still plays and this function
-					is called when the video plays (its just that we can not see the video finish because
-					it is off screen).
-					
-					To fix this we need to somehow check the dataindex to make sure that it is 
-					the first slide as we only want to move the the second slide when we are on 
-					the first slide.
-
+					/*
+					we check to see if the active slide is the first slide due to the way
+					the slides are created, where every slide is loaded at once. Thus, even
+					if the user does not view the first slide, this code will move to the slide
+					2 as the video still plays in the background and when it finishes this code executs.
+					Thus, we need to check if the page that the user viewing was the first one. 
 					*/
-
-					//if($('.onepage-pagination').find(".active").('data-index') == 1){
-					setTimeout(function(){
-						$('main').moveTo(2);
-					}, 150);
-					//}
+					if($('.onepage-pagination').find(".active").data('index') == 1){
+						setTimeout(function(){
+							$('main').moveTo(2);
+						}, 150);
+					}
 				});
 			})
 

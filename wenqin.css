@@ -19,6 +19,10 @@ p{
 footer{
 }
 
+#backToTopBar{
+	position: fixed;
+}
+
 #intro-title{
 	position: relative;
 	width: 800px;
